@@ -1,0 +1,7 @@
+.FontAwesomeIcon{
+    transition-duration: 0.5s;
+    color: #ebc28d;
+}
+.FontAwesomeIcon:hover{
+    margin-top: -10px;
+}

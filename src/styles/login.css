@@ -1,0 +1,16 @@
+.login_image {
+    background: rgba(64, 64, 64, 0.7) url('https://media.istockphoto.com/id/1321320075/photo/3d-rendering-of-an-isolated-modern-pale-green-mid-century-cosy-lounge-wingback-armchair.webp?b=1&s=612x612&w=0&k=20&c=9cAobxoT-iwlI23tgWR_SV5-Vnzx_2VHjIexbT7ATUw=');
+    background-size: cover;
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+@media (max-width: 560px) {
+    .form {
+        padding-top: calc(25vh - 50%);
+        padding-bottom: calc(30vh - 50%);
+        margin: 2em auto;
+    }
+}

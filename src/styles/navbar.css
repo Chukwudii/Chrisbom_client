@@ -1,0 +1,25 @@
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    color: brown;
+}
+
+.inter {
+    font-family: 'Inter', serif;
+}
+
+hr {
+    color: black;
+    background-color: black;
+    height: 0px;
+    border-radius: 2px;
+}
+
+.cart-count {
+    width: 18px;
+    height: 18px;
+    margin-top: -42px;
+    margin-left: 22px;
+    border-radius: 15px;
+    color: white;
+    background-color: red;
+}
