@@ -12,6 +12,9 @@ import LeatherContext from './pages/leatherContext.jsx';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/footer.jsx';
 import Cart from './pages/cart.jsx';
+import Profile from './pages/profile.jsx';
+import Wishlist from './pages/wishlist.jsx';
+import Order_History from './pages/Order_History.jsx';
 import { ShopContextProvider } from './components/context/shopContext.jsx';
 import './index.css';
 
@@ -19,7 +22,7 @@ import './index.css';
 const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <main className='grow'> <Navbar /></main>     
+      <main className='grow'> <Navbar /></main>
       <main className="grow">
         <Outlet />
       </main>
@@ -42,7 +45,10 @@ const router = createBrowserRouter([
       { path: "/upholstery_fabric", element: <Fabric /> },
       { path: "/upholstery_leather", element: <Leather /> },
       { path: "/fabric/:id/:name", element: <FabricContext /> },
-      { path: "/leather/:id/:name/:color", element: <LeatherContext /> },
+      { path: "/leather/:id/:name", element: <LeatherContext /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/order_history", element: <Order_History /> },
+      { path: "/wishlist", element: <Wishlist /> },
     ],
   },
   { path: "/signup", element: <Signup /> },

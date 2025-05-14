@@ -3,7 +3,7 @@ import { FaLeaf, FaCouch, FaUsers, FaPhone, FaEnvelope } from 'react-icons/fa';
 import '../styles/about.css'
 const About = () => {
   return (
-    <div className="pt-28">
+    <div className="">
       {/* Company Overview Section */}
       <section className="container mx-auto px-6 mb-12">
         <h3 className="text-3xl font-semibold mb-6 text-center">Who We Are</h3>

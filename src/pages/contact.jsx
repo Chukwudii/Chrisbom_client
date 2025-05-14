@@ -4,7 +4,7 @@ import { faMapMarkerAlt, faPhone, faEnvelope, faClock } from '@fortawesome/free-
 import '../styles/contact.css';
 const Contact = () => {
   return (
-    <div className='pt-28 sm:px-6'>
+    <div className='sm:px-6'>
       <div className='px-6'>
         <div className=' flex items-center justify-center '>
           <div class="w-full max-w-sm bg-white">

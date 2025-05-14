@@ -1,200 +1,241 @@
-import React, { useState, useEffect } from "react";
-import fabrics from "../database/fabrics";
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import React, { useState, useEffect, useContext, Fragment } from "react";
+import { ShopContext } from "../components/context/shopContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
-
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 const Fabric = () => {
-  function capitalizeWords(text) {
-    return text
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  }
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const { allproducts, wish, addtowishlist } = useContext(ShopContext);
   const [search, setSearch] = useState("");
-  const [filteredDesigns, setFilteredDesigns] = useState(fabrics);
-  const categories = ["Leather", "Mat", "Velvet", "Towel Face"];
-
+  const [priceRange, setPriceRange] = useState("");
+  const [fabricType, setFabricType] = useState("");
+  const [filteredDesigns, setFilteredDesigns] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // Set number of items per page to 4
-
-  const handleFilterButtonClick = (category) => {
-    if (selectedFilters.includes(category)) {
-      setSelectedFilters(selectedFilters.filter((el) => el !== category));
-    } else {
-      setSelectedFilters([...selectedFilters, category]);
-    }
+  const itemsPerPage = 12;
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [Wishlist, setWishlist] = useState(false);
+  const [Wish, setWish] = useState(wish);
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsOpen(true);
   };
 
+  function wishlist_toast() {
+    setWishlist(true);
+    setTimeout(() => {
+      setWishlist(false);
+    }, 3000);
+  }
+
   useEffect(() => {
-    let tempDesigns = fabrics;
-    if (selectedFilters.length > 0) {
-      tempDesigns = tempDesigns.filter((product) =>
-        selectedFilters.includes(capitalizeWords(product.category))
-      );
-    }
+    let tempDesigns = allproducts?.filter(product => product.category === "Fabric") || [];
+
+    // Filter by search (name or color)
     if (search) {
       tempDesigns = tempDesigns.filter((product) =>
-        product.color.toLowerCase().includes(search.toLowerCase())
+        (product.name.toLowerCase().includes(search.toLowerCase()))
+      );
+    }
+
+    // Filter by price range
+    if (priceRange) {
+      const [min, max] = priceRange.split("-");
+      tempDesigns = tempDesigns.filter((product) => {
+        const price = product.price_yard;
+        if (max) return price >= Number(min) && price <= Number(max);
+        return price >= Number(min);
+      });
+    }
+
+    // Filter by fabric type
+    if (fabricType) {
+      tempDesigns = tempDesigns.filter(
+        (product) =>
+          product.type &&
+          product.type.toLowerCase() === fabricType.toLowerCase()
       );
     }
 
     setFilteredDesigns(tempDesigns);
-    setCurrentPage(1); // Reset to the first page whenever filters change
-  }, [search, selectedFilters]);
+    setCurrentPage(1);
+  }, [search, priceRange, fabricType, allproducts]);
 
-  // Get the designs for the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentDesigns = filteredDesigns.slice(startIndex, endIndex);
-
-  // Calculate total pages
   const totalPages = Math.ceil(filteredDesigns.length / itemsPerPage);
 
   return (
-    <div className="max-w-7xl pt-24 mx-auto">
-      <div className="px-16">
+    <div className="max-w-7xl mx-auto">
+      {Wishlist && (
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
+          {Wish}
+        </div>
+      )}
+      <div className="px-4 sm:px-8 md:px-8">
         <form
-          className="mb-4 flex justify-start mx-auto"
+          className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
           onSubmit={(e) => e.preventDefault()}
         >
-          <input
-            className="w-full p-2 border-gray-400 border-2 rounded-md"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="ml-4 inline-flex items-center justify-center rounded-md text-gray-700"
-          >
-            Filter
-            <FontAwesomeIcon icon={faFilter} />
-            <span className="sr-only">Filter</span>
-          </button>
+          {/* Search Input */}
+          <div className="relative col-span-2">
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FontAwesomeIcon icon={faFilter} className="text-gray-400" />
+              </span>
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search by name or color"
+                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          </div>
+
+          {/* Price Range Filter */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Price Range
+            </label>
+            <select
+              onChange={(e) => setPriceRange(e.target.value)}
+              className="w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">All</option>
+              <option value="0-1000">₦0 - ₦1,000</option>
+              <option value="1000-3000">₦1,000 - ₦3,000</option>
+              <option value="3000-5000">₦3,000 - ₦5,000</option>
+              <option value="5000">₦5,000+</option>
+            </select>
+          </div>
+
+          {/* Fabric Type Filter */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Type
+            </label>
+            <select
+              onChange={(e) => setFabricType(e.target.value)}
+              className="w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">All Types</option>
+              <option value="Cotton">Cotton</option>
+              <option value="Velvet">Velvet</option>
+              <option value="Linen">Linen</option>
+              <option value="Silk">Silk</option>
+              <option value="Wool">Wool</option>
+            </select>
+          </div>
         </form>
       </div>
 
-      {/* Filter Sidebar */}
-      <Transition show={isOpen} as={React.Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10" onClose={() => setIsOpen(false)}>
-          <div className="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true" />
-          <Transition.Child
-            as={React.Fragment}
-            enter="transform transition ease-in-out duration-300"
-            enterFrom="translate-x-full"
-            enterTo="translate-x-0"
-            leave="transform transition ease-in-out duration-300"
-            leaveFrom="translate-x-0"
-            leaveTo="translate-x-full"
-          >
-            <Dialog.Panel className="fixed right-0 top-0 h-full w-full bg-white shadow-lg p-5 pt-6 mt-14 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg inter font-semibold">Filter</h2>
-                <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-gray-700">
-                  <XMarkIcon className="w-6 h-6" aria-hidden="true" />
-                  <span className="sr-only">Close sidebar</span>
+      {/* Product Display */}
+
+      <div className="mt-6 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+        {currentDesigns.length > 0 ? (
+          currentDesigns.map((product, index) => (
+            <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">
+              <div className=" overflow-hidden bg-gray-200">
+                <img
+                  alt={product.name}
+                  src={product.image}
+                  className="w-full h-40 md:h-56 object-cover"
+                  onClick={() => openModal(product)}
+                />
+                <button
+                  onClick={() => {
+                    wishlist_toast();
+                    addtowishlist(product.id)
+                  }}
+                  className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow hover:scale-105 transition"
+                  aria-label="Add to Wishlist"
+                >
+                  <FontAwesomeIcon icon={faHeart} className="text-red-600" />
                 </button>
               </div>
-              <div className="space-y-4">
-                <div className="flex flex-col items-center justify-center">
-                  {categories.map((category, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleFilterButtonClick(category)}
-                      className={`btn inter w-full py-2 hover:bg-black rounded-lg mb-2 ${selectedFilters.includes(category) ? "bg-black text-white" : "bg-blue-500 text-white"
-                        }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
+              <div className="mt-2 p-2">
+                <h3 className="text-md font-medium text-black">{product.name}</h3>
+                <div className="flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
+                  <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
                 </div>
-              </div>
-            </Dialog.Panel>
-          </Transition.Child>
-        </Dialog>
-      </Transition>
-
-      {/* Display Products */}
-
-
-      {currentDesigns.length > 0 ? (
-        <>
-          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
-            {currentDesigns.map((product) => (
-              <div key={product.id} className="group bg-white shadow-md rounded-lg overflow-hidden" onClick={window.scrollTo(0, 0)}>
                 <Link to={`/fabric/${product.id}/${product.name}`}>
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                    <img
-                      alt={product.imageAlt}
-                      src={product.imageSrc}
-                      className="h-44 w-full object-cover object-center md:h-56 lg:h-full lg:w-full"
-                    />
-                  </div>
-                  <div className="mt-2 p-1 px-2 ml-1">
-                    <h3 className="text-m sm:text-lg font-medium text-black inter">{product.name}</h3>
-                  </div>
-                  <div className="mt-1 sm:flex justify-between mb-1 p-1 px-2 ml-1">
-                    <p className="text-sm inter text-gray-900">
-                      &#8358;{product.price}/yards
-                    </p>
-                  </div>
-                  <button className="mt-2 text-white bg-black w-full inter py-2 hover:bg-blue-400">Add To Cart</button>
+                  <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
+                    Add To Cart
+                  </button>
                 </Link>
               </div>
-            ))}
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-6 col-span-full">
+            <p>No Products.</p>
           </div>
-          {/* Pagination Controls */}
-          <div className="flex justify-center mt-8 mb-4 space-x-2">
-            {/* Previous Arrow */}
+        )}
+      </div>
+
+      {/* Pagination */}
+      {filteredDesigns.length > 0 && (
+        <div className="flex justify-center mt-8 space-x-2">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-200" : "bg-blue-500 text-white"}`}
+            disabled={currentPage === 1}
+          >
+            &larr; Previous
+          </button>
+
+          {Array.from({ length: totalPages }, (_, index) => (
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-blue-500 text-white"}`}
-              disabled={currentPage === 1}
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`px-4 py-2 rounded-md ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
             >
-              &larr; Previous
+              {index + 1}
             </button>
+          ))}
 
-            {/* Page Number Buttons */}
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentPage(index + 1)}
-                className={`px-4 py-2 rounded-md ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-
-            {/* Next Arrow */}
-            <button
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className={`px-4 py-2 rounded-md ${currentPage === totalPages ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-blue-500 text-white"}`}
-              disabled={currentPage === totalPages}
-            >
-              Next &rarr;
-            </button>
-          </div>
-
-        </>
-      ) : (
-        <div className="text-center py-6 md:py-36 ">
-          <p className="mx-auto">Not found.</p>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            className={`px-4 py-2 rounded-md ${currentPage === totalPages ? "bg-gray-200" : "bg-blue-500 text-white"}`}
+            disabled={currentPage === totalPages}
+          >
+            Next &rarr;
+          </button>
         </div>
       )}
 
+      <Transition show={isOpen} as={Fragment}>
+        <Dialog onClose={() => setIsOpen(false)} className="relative z-50">
+          <Transition.Child
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-50" />
+          </Transition.Child>
 
-
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <Dialog.Panel className=" rounded-lg max-w-md lg:max-w-xl w-full shadow-xl">
+              <div className="flex justify-end items-center mb-4">
+                {/* <Dialog.Title className="text-lg font-medium">{selectedProduct?.name}</Dialog.Title> */}
+                <XMarkIcon onClick={() => setIsOpen(false)} className="w-12 h-8 cursor-pointer text-white" />
+              </div>
+              {selectedProduct && (
+                <>
+                  <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-64 md:h-96 object-cover rounded" />
+                </>
+              )}
+            </Dialog.Panel>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
-
   );
 };
 

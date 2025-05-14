@@ -15,11 +15,11 @@ hr {
 }
 
 .cart-count {
-    width: 18px;
-    height: 18px;
-    margin-top: -42px;
+    width: 18.2px;
+    height: 18.9px;
+    margin-top: -41px;
     margin-left: 22px;
-    border-radius: 15px;
+    border-radius: 16px;
     color: white;
     background-color: red;
 }
