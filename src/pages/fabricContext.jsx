@@ -134,7 +134,7 @@ export default function FabricContext() {
                 </Link>
             </div>
             {/* Related Products Section */}
-            <div className="mt-6 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+            <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                 {related.length > 0 ? (
                     related.map((relatedProduct, index) => (
                         <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">

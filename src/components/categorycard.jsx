@@ -24,7 +24,7 @@ export default function Card() {
     return (
         <>
             {/* LEATHER SECTION */}
-            <div className="bg-white md:px-2">
+            <div className="bg-white px-3 md:px-4">
                 <div className="mx-auto max-w-7xl lg:max-w-7xl">
                     <div className="flex justify-center sm:justify-start px-3">
                         <h3 className="text-lg  font-semibold tracking-normal text-gray-800  sm:text-xl inter">
@@ -38,7 +38,7 @@ export default function Card() {
                         </Link>
                     </div>
 
-                    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                         {currentLeathers.length > 0 ? (
                             currentLeathers.map((product, index) => (
                                 <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">
@@ -86,7 +86,7 @@ export default function Card() {
             </div>
 
             {/* FABRIC SECTION */}
-            <div className="bg-white md:px-2">
+            <div className="bg-white px-3 md:px-4">
                 <div className="mx-auto max-w-7xl py-2 sm:py-12 lg:max-w-7xl">
                     <div className="flex justify-center sm:justify-start px-3">
                         <h3 className="text-lg font-semibold tracking-normal text-gray-800 sm:text-xl inter">
@@ -100,7 +100,7 @@ export default function Card() {
                     </div>
 
 
-                    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                         {currentFabrics.length > 0 ? (
                             currentFabrics.map((product, index) => (
                                 <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">

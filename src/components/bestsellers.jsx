@@ -11,7 +11,7 @@ export default function Bestsellers() {
     })
 
     return (
-        <div className="bg-white md:px-4">
+        <div className="bg-white px-3 md:px-4">
             <div className="mx-auto py-2 max-w-7xl ">
                 <h3 className="text-lg text-center font-semibold tracking-normal text-gray-800 sm:text-xl inter">New Collections</h3>
 

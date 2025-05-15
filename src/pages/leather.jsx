@@ -52,7 +52,7 @@ const Leather = () => {
           {Wish}
         </div>
       )}
-      <div className="px-4 sm:px-8 md:px-8">
+      <div className="px-3 sm:px-8 md:px-8">
         <form className="mb-6 grid grid-cols-1" onSubmit={(e) => e.preventDefault()}>
           <div className="relative col-span-2">
             <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -69,7 +69,7 @@ const Leather = () => {
         </form>
       </div>
 
-      <div className="mt-6 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+      <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
         {currentDesigns.length > 0 ? (
           currentDesigns.map((product, index) => (
             <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">

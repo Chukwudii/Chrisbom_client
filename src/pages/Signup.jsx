@@ -57,7 +57,7 @@ export default function Signup() {
     return (
         <>
             <Navbar />
-            <div className="hhmin-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 px-3 sm:px-6 lg:px-8">
                 <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
                     {/* Left Side (Form) */}

@@ -61,7 +61,7 @@ const Wishlist = () => {
     }, []);
 
     return (
-        <div className="pt-24 px-4 sm:px-8 md:px-16">
+        <div className="px-3 sm:px-8 md:px-16">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Your Wishlist</h2>
             {loading ? (
                 <p className="text-lg">Loading...</p>

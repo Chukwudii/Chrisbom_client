@@ -141,7 +141,7 @@ export default function Profile() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 bg-white rounded-xl shadow-md">
+        <div className="mx-auto px-4 bg-white rounded-xl shadow-md">
             <h2 className="text-2xl font-semibold mb-6">Manage Profile</h2>
 
             {/* Profile Info */}
