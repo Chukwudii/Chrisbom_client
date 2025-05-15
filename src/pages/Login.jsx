@@ -14,6 +14,7 @@ export default function Login() {
         email: "",
         password: "",
     });
+    const baseURL = import.meta.env.VITE_API_URL;
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -27,7 +28,7 @@ export default function Login() {
         setLoading(true);
         setError(""); // Reset error message
         try {
-            const response = await fetch("http://localhost:4000/login", {
+            const response = await fetch(`${baseURL}/login`, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -54,7 +55,7 @@ export default function Login() {
     return (
         <>
             <Navbar />
-            <div className="pt-20 min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+            <div className="hhmin-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
                     {/* Left Side (Form) */}

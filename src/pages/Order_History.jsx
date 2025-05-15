@@ -4,6 +4,7 @@ import { ShopContext } from "../components/context/shopContext";
 const Order_History = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const { orderitems, getorder, allproducts } = useContext(ShopContext);
+     const baseURL = import.meta.env.VITE_API_URL;
     const closeButtonRef = useRef(null);
 
     useEffect(() => {

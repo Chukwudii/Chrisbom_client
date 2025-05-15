@@ -6,13 +6,14 @@ import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 const Wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
     const [loading, setLoading] = useState(true);
+    const baseURL = import.meta.env.VITE_API_URL;
 
     const fetchWishlist = async () => {
         const token = localStorage.getItem('auth-token');
         if (!token) return;
 
         try {
-            const res = await fetch('http://localhost:4000/fetchwishlist', {
+            const res = await fetch(`${baseURL}/fetchwishlist`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -36,7 +37,7 @@ const Wishlist = () => {
     const removeFromWishlist = async (productId) => {
         const token = localStorage.getItem('auth-token');
         try {
-            const res = await fetch(`http://localhost:4000/removewishlist`, {
+            const res = await fetch(`${baseURL}/removewishlist`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

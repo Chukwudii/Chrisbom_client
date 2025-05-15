@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 export default function Signup() {
     const navigate = useNavigate();
     const [passwordVisible, setPasswordVisible] = useState(false);
-
+    const baseURL = import.meta.env.VITE_API_URL;
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
@@ -31,7 +31,7 @@ export default function Signup() {
         try {
             setError('');
             setLoading(true);
-            const response = await fetch('http://localhost:4000/signup', {
+            const response = await fetch(`${baseURL}/signup`, {
                 method: 'POST',  // Corrected spacing
                 headers: {
                     'Accept': 'application/json',
@@ -57,7 +57,7 @@ export default function Signup() {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+            <div className="hhmin-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
                     {/* Left Side (Form) */}

@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 
 export default function Bestsellers() {
     const [collections, setCollections] = useState([]);
+    const baseURL = import.meta.env.VITE_API_URL;
     useEffect(() => {
-        fetch('http://localhost:4000/newcollections')
+        fetch(`${baseURL}/newcollections`)
             .then((response) => response.json())
             .then((data) => setCollections(data))
     })

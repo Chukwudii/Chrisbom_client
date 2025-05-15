@@ -7,10 +7,11 @@ export const ShopContextProvider = (props) => {
     const [cartitems, setcartitems] = useState({});
     const [orderitems, setOrderitems] = useState({});
     const [wish, setWish] = useState("");
+    const baseURL = import.meta.env.VITE_API_URL;
     const refreshCartData = () => {
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/getcart', {
+            fetch(`${baseURL}/getcart`, {
                 headers: {
                     'auth-token': token
                 }
@@ -36,7 +37,7 @@ export const ShopContextProvider = (props) => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:4000/allproducts')
+        fetch(`${baseURL}/allproducts`)
             .then((response) => response.json())
             .then((data) => setAllProducts(data))
             .catch((err) => console.error("Failed to fetch products", err));
@@ -57,7 +58,7 @@ export const ShopContextProvider = (props) => {
 
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/addtocart', {
+            fetch(`${baseURL}/addtocart`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -87,7 +88,7 @@ export const ShopContextProvider = (props) => {
 
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/removefromcart', {
+            fetch(`${baseURL}/removefromcart`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -123,7 +124,7 @@ export const ShopContextProvider = (props) => {
 
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/update', {
+            fetch(`${baseURL}/update`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -152,7 +153,7 @@ export const ShopContextProvider = (props) => {
         if (token) {
 
             try {
-                const response = await fetch('http://localhost:4000/clearcart', {
+                const response = await fetch(`${baseURL}/clearcart`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -177,7 +178,7 @@ export const ShopContextProvider = (props) => {
         if (!token) return;
 
         try {
-            const response = await fetch('http://localhost:4000/addtoorder', {
+            const response = await fetch(`${baseURL}/addtoorder`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -198,7 +199,7 @@ export const ShopContextProvider = (props) => {
     const getorder = () => {
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/getOrder', {
+            fetch(`${baseURL}/getOrder`, {
                 method: 'GET',
                 headers: {
                     'auth-token': token
@@ -214,7 +215,7 @@ export const ShopContextProvider = (props) => {
                                 amount: item.amount,
                                 unit: item.unit,
                                 itemId: item.itemId,
-                                status:item.status
+                                status: item.status
                             };
                         });
                         setOrderitems(orderData); // Not { order }
@@ -236,7 +237,7 @@ export const ShopContextProvider = (props) => {
         }
 
         try {
-            const response = await fetch('http://localhost:4000/addtowishilist', {
+            const response = await fetch(`${baseURL}/addtowishilist`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -250,7 +251,7 @@ export const ShopContextProvider = (props) => {
             if (response.ok && data.success) {
                 setWish(data.message);
             }
-            else{
+            else {
                 setWish(data.message);
             }
         } catch (error) {

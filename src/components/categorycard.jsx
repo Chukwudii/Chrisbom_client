@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 export default function Card() {
     const [collections, setCollections] = useState([]);
     const [leathercollections, setleatherCollections] = useState([]);
+    const baseURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         // Fetch both fabric and leather collections on component mount
-        fetch('http://localhost:4000/fabriccollections')
+        fetch(`${baseURL}/fabriccollections`)
             .then((response) => response.json())
             .then((data) => setCollections(data));
 
-        fetch('http://localhost:4000/leathercollections')
+        fetch(`${baseURL}/leathercollections`)
             .then((response) => response.json())
             .then((data) => setleatherCollections(data));
     }, []);

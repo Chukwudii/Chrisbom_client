@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
     const navigate = useNavigate();
+    const baseURL = import.meta.env.VITE_API_URL;
 
     const [UserData, setUserData] = useState({});
     const [profile, setProfile] = useState({
@@ -22,7 +23,7 @@ export default function Profile() {
     const refreshUserData = () => {
         const token = localStorage.getItem('auth-token');
         if (token) {
-            fetch('http://localhost:4000/getusers', {
+            fetch(`${baseURL}/getusers`, {
                 headers: {
                     'auth-token': token
                 }
@@ -64,7 +65,7 @@ export default function Profile() {
         try {
             const token = localStorage.getItem('auth-token');
             if (token) {
-                const response = await fetch('http://localhost:4000/Updateuser', {
+                const response = await fetch(`${baseURL}/Updateuser`, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -94,7 +95,7 @@ export default function Profile() {
             try {
                 const token = localStorage.getItem('auth-token');
                 if (token) {
-                    const response = await fetch('http://localhost:4000/updatepassword', {
+                    const response = await fetch(`${baseURL}/updatepassword`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
