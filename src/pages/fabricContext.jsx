@@ -129,12 +129,10 @@ export default function FabricContext() {
                         </div>
                     </div>
                 </div>
-                <Link to="/" className="mt-4 inline-block text-blue-500">
-                    Back to Home
-                </Link>
+
             </div>
             {/* Related Products Section */}
-            <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+            <div className="mt-6 mb-8 px-3 md:px-8 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                 {related.length > 0 ? (
                     related.map((relatedProduct, index) => (
                         <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">
@@ -142,7 +140,7 @@ export default function FabricContext() {
                                 <img
                                     alt={relatedProduct.name}
                                     src={relatedProduct.image}
-                                    className="w-full h-40 md:h-56 object-cover"
+                                    className="w-full h-40 sm:h-56 object-cover"
                                     onClick={() => openModal(relatedProduct)}
                                 />
                                 <button

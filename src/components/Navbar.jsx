@@ -261,9 +261,9 @@ export default function Navbar() {
                                             >
                                                 Wishlist
                                             </Link>
-                                            <button onClick={() => { localStorage.removeItem('auth-token'); navigate('/'); window.location.reload(); }} className='rounded-2xl bg-dark border-2 py-2 px-3 hover:border-amber-500'>
+                                            {/* <button onClick={() => { localStorage.removeItem('auth-token'); navigate('/'); window.location.reload(); }} className='rounded-2xl bg-dark border-2 py-2 px-3 hover:border-amber-500'>
                                                 Logout
-                                            </button>
+                                            </button> */}
                                         </div>
                                         : <div>
                                             <Link to={"/signup"}

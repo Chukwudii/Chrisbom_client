@@ -73,7 +73,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="px-3 md:px-6 lg:px-8">
+    <div className="mb-8 px-3 md:px-6 lg:px-8">
 
       <div className="w-full">  {Wishlist && (
         <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">

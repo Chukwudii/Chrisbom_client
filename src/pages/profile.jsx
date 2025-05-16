@@ -141,12 +141,12 @@ export default function Profile() {
     };
 
     return (
-        <div className="mx-auto px-4 bg-white rounded-xl shadow-md">
-            <h2 className="text-2xl font-semibold mb-6">Manage Profile</h2>
+        <div className="mx-auto mb-6 px-3 md:px-8 bg-white">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Manage Profile</h2>
 
             {/* Profile Info */}
             <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Profile Info</h3>
+                <h3 className="text-lg text-gray-900 font-semibold mb-2">Profile Info</h3>
                 <div className="space-y-2">
                     <div>
                         <label htmlFor="name" className="text-gray-700 font-medium">Full Name</label>

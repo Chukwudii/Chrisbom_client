@@ -74,7 +74,7 @@ const Fabric = () => {
           {Wish}
         </div>
       )}
-      <div className="px-4 sm:px-8 md:px-8">
+      <div className="px-3 sm:px-8 md:px-8">
         <form
           className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
           onSubmit={(e) => e.preventDefault()}
@@ -134,7 +134,7 @@ const Fabric = () => {
 
       {/* Product Display */}
 
-      <div className="mt-6 px-3 md:px-4 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+      <div className="mt-6 px-3 md:px-8 grid grid-cols-2 gap-x-4 gap-y-6 py-2 px-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
         {currentDesigns.length > 0 ? (
           currentDesigns.map((product, index) => (
             <div key={index} className="group bg-white shadow-xl rounded-lg overflow-hidden flex flex-col relative cursor-pointer">
@@ -142,7 +142,7 @@ const Fabric = () => {
                 <img
                   alt={product.name}
                   src={product.image}
-                  className="w-full h-40 md:h-56 object-cover"
+                  className="w-full h-40 sm:h-56 object-cover"
                   onClick={() => openModal(product)}
                 />
                 <button
@@ -178,7 +178,7 @@ const Fabric = () => {
 
       {/* Pagination */}
       {filteredDesigns.length > 0 && (
-        <div className="flex justify-center mt-8 space-x-2">
+        <div className="flex justify-center mt-8 mb-8 space-x-2">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-200" : "bg-blue-500 text-white"}`}

@@ -61,14 +61,14 @@ const Wishlist = () => {
     }, []);
 
     return (
-        <div className="px-3 sm:px-8 md:px-16">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Your Wishlist</h2>
+        <div className="mb-8 px-3 md:px-8">
+            <h2 className="text-lg  font-semibold tracking-normal text-gray-800 text-center sm:text-xl inter mb-6 text-gray-800">Your Wishlist</h2>
             {loading ? (
                 <p className="text-lg">Loading...</p>
             ) : wishlist.length === 0 ? (
                 <p className="text-lg text-gray-500">Your wishlist is empty.</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {wishlist.map(product => (
                         <div
                             key={product.id}

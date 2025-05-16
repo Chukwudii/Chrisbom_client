@@ -4,7 +4,7 @@ import { ShopContext } from "../components/context/shopContext";
 const Order_History = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const { orderitems, getorder, allproducts } = useContext(ShopContext);
-     const baseURL = import.meta.env.VITE_API_URL;
+    const baseURL = import.meta.env.VITE_API_URL;
     const closeButtonRef = useRef(null);
 
     useEffect(() => {
@@ -33,8 +33,8 @@ const Order_History = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6">
-            <h1 className="text-2xl font-semibold mb-6">Order History</h1>
+        <div className="max-w-4xl mx-auto px-3 md:px-4 mb-8">
+            <h1 className="text-lg md:text-xl text-center font-semibold mb-4">Order History</h1>
 
             <div className="space-y-4">
                 {Object.entries(orderitems).map(([orderId, order]) => {
@@ -43,16 +43,29 @@ const Order_History = () => {
                         ? order.amount * (product?.price_yard || 0)
                         : order.amount * (product?.price_sqm || 0);
                     const orderss = order.orderIds;
-                    const datePart = orderss.split('-')[1];
-                    const formattedDate = `${datePart.slice(0, 4)}-${datePart.slice(4, 6)}-${datePart.slice(6)}`;
+
+                    if (orderss && orderss.includes('-')) {
+                        const parts = orderss.split('-');
+
+                        if (parts.length > 1 && parts[1].length === 8) {
+                            const datePart = parts[1];
+                            const formattedDate = `${datePart.slice(0, 4)}-${datePart.slice(4, 6)}-${datePart.slice(6)}`;
+                            console.log("Formatted date:", formattedDate);
+                        } else {
+                            console.error("Invalid date format in order ID:", orderss);
+                        }
+                    } else {
+                        console.error("Invalid order ID format:", orderss);
+                    }
+
                     return (
                         <div
                             key={orderId}
                             className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center"
                         >
                             <div>
-                                <p className="font-medium text-gray-700">Order ID: {order.orderIds}</p>
-                                <p className="text-sm text-gray-500">Date: {formattedDate}</p>
+                                <p className="font-medium text-sm text-gray-700">Order ID: {order.orderIds}</p>
+                                {/* <p className="text-sm text-gray-500">Date: {formattedDate}</p> */}
                                 <p className="text-sm text-gray-500">Product: {product?.name || "Unknown Product"}</p>
                                 <p className="text-sm text-gray-500">Quantity: {order.amount} {order.unit}</p>
                                 <p className="text-sm text-gray-500">Total: &#8358;{total.toLocaleString()}</p>
@@ -90,7 +103,7 @@ const Order_History = () => {
                             ✕
                         </button>
 
-                        <h2 className="text-2xl font-bold mb-6 text-center border-b pb-2">Order Details</h2>
+                        <h2 className="text-lg font-semibold mb-6 text-center border-b">Order Details</h2>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
                             {/* Product Image */}
@@ -103,14 +116,14 @@ const Order_History = () => {
                             </div>
 
                             {/* Product Info */}
-                            <div className="space-y-2 text-sm text-gray-700">
-                                <p><span className="font-medium">Order ID:</span> {selectedOrder.id}</p>
+                            <div className="space-y-2 text-sm text-gray-900">
+                                <p><span className="font-medium">Order ID:</span> {selectedOrder.orderIds}</p>
                                 <p><span className="font-medium">Product:</span> {selectedOrder.product?.name || "Unknown Product"}</p>
                                 <p><span className="font-medium">Amount:</span> {selectedOrder.amount} {selectedOrder.unit}</p>
-                                <p><span className="font-medium">Price per {selectedOrder.unit}:</span> $
-                                    {selectedOrder.unit === "yard"
+                                <p><span className="font-medium">Price per {selectedOrder.unit}:</span> &#8358;
+                                    {(selectedOrder.unit === "yard"
                                         ? selectedOrder.product?.price_yard
-                                        : selectedOrder.product?.price_sqm}
+                                        : selectedOrder.product?.price_sqm).toLocaleString()}
                                 </p>
                             </div>
                         </div>
@@ -118,11 +131,11 @@ const Order_History = () => {
                         <hr className="my-5" />
 
                         <p className="text-lg font-semibold text-gray-800 text-center">
-                            Total: $
+                            Total:&#8358;
                             {(selectedOrder.unit === "yard"
                                 ? selectedOrder.amount * selectedOrder.product?.price_yard
                                 : selectedOrder.amount * selectedOrder.product?.price_sqm
-                            ).toFixed(2)}
+                            ).toLocaleString()}
                         </p>
                     </div>
                 </div>
