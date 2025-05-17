@@ -66,7 +66,7 @@ const Wishlist = () => {
             {loading ? (
                 <p className="text-lg">Loading...</p>
             ) : wishlist.length === 0 ? (
-                <p className="text-lg text-gray-500">Your wishlist is empty.</p>
+                <p className="text-lg text-center text-gray-500">Your wishlist is empty.</p>
             ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {wishlist.map(product => (
@@ -90,15 +90,32 @@ const Wishlist = () => {
                             </div>
                             <div className="p-4 space-y-2">
                                 <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                                <div className="flex justify-between text-sm text-gray-700">
-                                    <span>₦{product.price_sqm.toLocaleString()}/sqm</span>
-                                    <span>₦{product.price_yard.toLocaleString()}/yard</span>
-                                </div>
-                                <Link to={`/leather/${product.id}/${product.name}`}>
-                                    <button className="mt-4 w-full bg-gray-900 text-white py-2 rounded-md hover:bg-blue-700 transition">
-                                        Add To Cart
-                                    </button>
-                                </Link>
+                                {
+                                    product.category === 'Fabric' ?
+                                        (<div>
+                                            <div className="flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
+                                                <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
+                                            </div>
+                                            <Link to={`/fabric/${product.id}/${product.name}`}>
+                                                <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
+                                                    Add To Cart
+                                                </button>
+                                            </Link>
+                                        </div>) :
+                                        (
+                                            <div>
+                                                <div className="sm:flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
+                                                    <p>&#8358;{product.price_sqm.toLocaleString()}/sqm</p>
+                                                    <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
+                                                </div>
+                                                <Link to={`/leather/${product.id}/${product.name}`}>
+                                                    <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
+                                                        Add To Cart
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        )
+                                }
                             </div>
                         </div>
                     ))}
