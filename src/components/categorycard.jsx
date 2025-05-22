@@ -52,17 +52,17 @@ export default function Card() {
                                     </div>
                                     <div className="mt-2 p-2">
                                         <h3 className="text-lg font-medium text-black">{product.name}</h3>
-                                    </div>
-                                    <div className="sm:flex justify-between text-gray-700 text-md font-normalmt-1 mb-1 px-2">
-                                        <p>&#8358;{product.price_sqm.toLocaleString()}/sqm</p>
-                                        <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
-                                    </div>
-                                    <div className="p-2">
-                                        <Link to={`/leather/${product.id}/${product.name}`}>
-                                            <button className="mt-1 text-white w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
+                                        <div className="flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
+                                            <p>&#8358;{product.price_sqm.toLocaleString()}/sqm</p>
+                                            <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
+                                        </div>
+                                         <div onClick={() => window.scrollTo(0, 0)}>
+                                        <Link to={`/fabric/${product.id}/${product.name}`}>
+                                            <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
                                                 Add To Cart
                                             </button>
                                         </Link>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -117,11 +117,13 @@ export default function Card() {
                                         <div className="flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
                                             <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
                                         </div>
+                                         <div onClick={() => window.scrollTo(0, 0)}>
                                         <Link to={`/fabric/${product.id}/${product.name}`}>
                                             <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
                                                 Add To Cart
                                             </button>
                                         </Link>
+                                        </div>
                                     </div>
                                 </div>
                             ))

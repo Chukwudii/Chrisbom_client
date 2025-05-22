@@ -159,7 +159,7 @@ export default function LeatherContext() {
                                     <p>&#8358;{relatedProduct.price_sqm.toLocaleString()}/sqm</p>
                                     <p>&#8358;{relatedProduct.price_yard.toLocaleString()}/yard</p>
                                 </div>
-                                <Link to={`/fabric/${relatedProduct.id}/${relatedProduct.name}`}>
+                                <Link to={`/leather${relatedProduct.id}/${relatedProduct.name}`}>
                                     <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
                                         Add To Cart
                                     </button>
