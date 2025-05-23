@@ -58,7 +58,7 @@ export default function Card() {
                                         <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
                                     </div>
                                     <div className="p-2">
-                                        <Link to={`/leather/${product.id}/${product.name}`}>
+                                        <Link onClick={() => window.scrollTo(0, 0)} to={`/leather/${product.id}/${product.name}`}>
                                             <button className="mt-1 text-white w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
                                                 Add To Cart
                                             </button>
@@ -116,12 +116,12 @@ export default function Card() {
                                         <div className="flex justify-between text-gray-700 text-md font-normal mt-1 mb-1">
                                             <p>&#8358;{product.price_yard.toLocaleString()}/yard</p>
                                         </div>
-                                         <div onClick={() => window.scrollTo(0, 0)}>
-                                        <Link to={`/fabric/${product.id}/${product.name}`}>
-                                            <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
-                                                Add To Cart
-                                            </button>
-                                        </Link>
+                                        <div onClick={() => window.scrollTo(0, 0)}>
+                                            <Link onClick={() => window.scrollTo(0, 0)} to={`/fabric/${product.id}/${product.name}`}>
+                                                <button className="mt-2 text-white  w-full py-2 rounded bg-gray-800 hover:bg-blue-700">
+                                                    Add To Cart
+                                                </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
