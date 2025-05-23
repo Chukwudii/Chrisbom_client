@@ -13,10 +13,8 @@ export default function LeatherContext() {
     const [unit, setUnit] = useState('yard');
     const [showToast, setShowToast] = useState(false);
     const [Amount, setAmount] = useState(false);
-    const [Wishlist, setWishlist] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [Wish, setWish] = useState(wish);
     if (!product) {
         return (
             <div className="pt-20 text-center">
@@ -48,12 +46,6 @@ export default function LeatherContext() {
         }, 3000);
         console.log("Added")
     };
-    function wishlist_toast() {
-        setWishlist(true);
-        setTimeout(() => {
-            setWishlist(false);
-        }, 3000);
-    }
     const related = allproducts.filter((item) => item.category === product.category);
 
     return (
@@ -66,11 +58,6 @@ export default function LeatherContext() {
             {Amount && (
                 <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
                     Input a valid quantity
-                </div>
-            )}
-            {Wishlist && (
-                <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-                    {Wish}
                 </div>
             )}
             <div className="px-4">
@@ -118,7 +105,6 @@ export default function LeatherContext() {
                                     Add To Cart
                                 </button>
                                 <button onClick={() => {
-                                    wishlist_toast();
                                     addtowishlist(product.id)
                                 }} className="mt-4 px-4 py-2 text-white rounded-lg bg-red-500 hover:bg-blue-700">
                                     Add To Wishlist
@@ -144,7 +130,6 @@ export default function LeatherContext() {
                                 />
                                 <button
                                     onClick={() => {
-                                        wishlist_toast();
                                         addtowishlist(product.id)
                                     }}
                                     className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow hover:scale-105 transition"

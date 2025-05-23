@@ -3,19 +3,10 @@ import { ShopContext } from "../components/context/shopContext";
 import "../styles/cart.css";
 
 export default function Cart() {
-  const { cartitems, removeFromCart, updateCartItem, totalItems, allproducts, addToOrder, clearCart, addtowishlist, wish } = useContext(ShopContext);
+  const { cartitems, removeFromCart, updateCartItem, totalItems, allproducts, addToOrder, clearCart, addtowishlist } = useContext(ShopContext);
   const products = allproducts;
 
   const [showModal, setShowModal] = useState(false);
-  const [Wishlist, setWishlist] = useState(false);
-  const [Wish, setWish] = useState(wish);
-  function wishlist_toast() {
-    setWishlist(true);
-    setTimeout(() => {
-      setWishlist(false);
-    }, 3000);
-    console.log(Wish)
-  }
 
   const subtotal = products.reduce((total, product) => {
     const cartItem = cartitems[product.id];
@@ -75,11 +66,7 @@ export default function Cart() {
   return (
     <div className="mb-8 px-3 md:px-6 lg:px-8">
 
-      <div className="w-full">  {Wishlist && (
-        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-          {Wish}
-        </div>
-      )}
+      <div className="w-full">
         <h1 className="text-center font-semibold montserrat text-xl mb-4">Your Cart</h1>
 
         {/* Cart Header */}
@@ -151,7 +138,6 @@ export default function Cart() {
                   </button>
                   <button
                     onClick={() => {
-                      wishlist_toast();
                       addtowishlist(product.id);
                     }}
                     className="text-pink-500 hover:text-pink-800"
@@ -192,7 +178,6 @@ export default function Cart() {
                 <div className="md:pl-5 px-4 flex md:hidden space-x-2">
                   <button
                     onClick={() => {
-                      wishlist_toast();
                       addtowishlist(product.id);
                     }}
                     className="w-full flex justify-center items-center px-4 mr-2 py-2 border border-pink-500 text-pink-500 hover:bg-pink-100 rounded"

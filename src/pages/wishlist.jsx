@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { toast } from 'react-toastify';
 const Wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,6 +36,11 @@ const Wishlist = () => {
 
     const removeFromWishlist = async (productId) => {
         const token = localStorage.getItem('auth-token');
+        if (!token) {
+            toast.warn("Please log in to manage your wishlist.");
+            return;
+        }
+
         try {
             const res = await fetch(`${baseURL}/removewishlist`, {
                 method: 'POST',
@@ -46,15 +51,21 @@ const Wishlist = () => {
                 body: JSON.stringify({ product_id: productId }),
             });
 
-            if (res.ok) {
-                setWishlist(prev => prev.filter(item => item.id !== productId));
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                // setWishlist(prev => prev.filter(item => item.id !== productId));
+                toast.success("Removed from wishlist");
+                fetchWishlist();
             } else {
-                console.error('Failed to remove from wishlist');
+                toast.error(data.error || "Failed to remove from wishlist");
             }
         } catch (err) {
             console.error('Error removing from wishlist:', err);
+            toast.error("Something went wrong. Try again!");
         }
     };
+
 
     useEffect(() => {
         fetchWishlist();
@@ -64,7 +75,7 @@ const Wishlist = () => {
         <div className="mb-8 px-3 md:px-8">
             <h2 className="text-lg  font-semibold tracking-normal text-gray-800 text-center sm:text-xl inter mb-6 text-gray-800">Your Wishlist</h2>
             {loading ? (
-                <p className="text-lg">Loading...</p>
+                <p className="text-lg text-center">Loading...</p>
             ) : wishlist.length === 0 ? (
                 <p className="text-lg text-center text-gray-500">Your wishlist is empty.</p>
             ) : (

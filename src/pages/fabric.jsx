@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 const Fabric = () => {
-  const { allproducts, wish, addtowishlist } = useContext(ShopContext);
+  const { allproducts, addtowishlist } = useContext(ShopContext);
   const [search, setSearch] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [fabricType, setFabricType] = useState("");
@@ -15,19 +15,10 @@ const Fabric = () => {
   const itemsPerPage = 12;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [Wishlist, setWishlist] = useState(false);
-  const [Wish, setWish] = useState(wish);
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsOpen(true);
   };
-
-  function wishlist_toast() {
-    setWishlist(true);
-    setTimeout(() => {
-      setWishlist(false);
-    }, 3000);
-  }
 
   useEffect(() => {
     let tempDesigns = allproducts?.filter(product => product.category === "Fabric") || [];
@@ -69,11 +60,6 @@ const Fabric = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      {Wishlist && (
-        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-          {Wish}
-        </div>
-      )}
       <div className="px-3 sm:px-8 md:px-8">
         <form
           className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
@@ -147,7 +133,6 @@ const Fabric = () => {
                 />
                 <button
                   onClick={() => {
-                    wishlist_toast();
                     addtowishlist(product.id)
                   }}
                   className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow hover:scale-105 transition"

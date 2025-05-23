@@ -16,6 +16,8 @@ import Profile from './pages/profile.jsx';
 import Wishlist from './pages/wishlist.jsx';
 import Order_History from './pages/Order_History.jsx';
 import { ShopContextProvider } from './components/context/shopContext.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
 // Layout component for shared Navbar and Footer
@@ -61,6 +63,7 @@ const App = () => {
 
     <ShopContextProvider>
       <RouterProvider router={router} />
+       <ToastContainer position="top-center" autoClose={3000} />
     </ShopContextProvider>
 
   );

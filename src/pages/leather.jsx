@@ -7,22 +7,13 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../components/context/shopContext";
 
 const Leather = () => {
-  const { allproducts, wish, addtowishlist } = useContext(ShopContext);
+  const { allproducts, addtowishlist} = useContext(ShopContext);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [Wishlist, setWishlist] = useState(false);
-  const [Wish, setWish] = useState(wish);
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsOpen(true);
   };
-
-  function wishlist_toast() {
-    setWishlist(true);
-    setTimeout(() => {
-      setWishlist(false);
-    }, 3000);
-  }
 
   const [search, setSearch] = useState('');
   const [filteredDesigns, setFilteredDesigns] = useState([]);
@@ -47,11 +38,6 @@ const Leather = () => {
 
   return (
     <div className="mx-auto">
-      {Wishlist && (
-        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-          {Wish}
-        </div>
-      )}
       <div className="px-3 sm:px-8 md:px-8">
         <form className="mb-6 grid grid-cols-1" onSubmit={(e) => e.preventDefault()}>
           <div className="relative col-span-2">
@@ -82,7 +68,6 @@ const Leather = () => {
                 />
                 <button
                   onClick={() => {
-                    wishlist_toast();
                     addtowishlist(product.id)
                   }}
                   className="absolute top-2 right-2 z-10 bg-white rounded-full p-1.5 shadow hover:scale-105 transition"

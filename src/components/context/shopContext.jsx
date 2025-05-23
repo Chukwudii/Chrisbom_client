@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const ShopContext = createContext();
 
@@ -47,15 +48,6 @@ export const ShopContextProvider = (props) => {
     }, []);
 
     const addToCart = (itemId, amount, unit) => {
-        setcartitems((prevCart) => ({
-            ...prevCart,
-            [itemId]: {
-                ...prevCart[itemId],
-                amount: parseFloat(amount),
-                unit: unit,
-            },
-        }));
-
         const token = localStorage.getItem('auth-token');
         if (token) {
             fetch(`${baseURL}/addtocart`, {
@@ -76,6 +68,9 @@ export const ShopContextProvider = (props) => {
             useEffect(() => {
                 refreshCartData();
             }, []);
+        }
+        else {
+
         }
     };
 
@@ -232,7 +227,7 @@ export const ShopContextProvider = (props) => {
     const addtowishlist = async (product_id) => {
         const token = localStorage.getItem('auth-token');
         if (!token) {
-            alert("Please log in to add items to your wishlist.");
+            toast.warn("Please log in to add items to your wishlist.");
             return;
         }
 
@@ -249,15 +244,16 @@ export const ShopContextProvider = (props) => {
 
             const data = await response.json();
             if (response.ok && data.success) {
-                setWish(data.message);
-            }
-            else {
-                setWish(data.message);
+                toast.success("Added to wishlist");
+            } else {
+                toast.info("Already in wishlist");
             }
         } catch (error) {
             console.error("Error adding to wishlist:", error);
+            toast.error("Something went wrong. Try again!");
         }
     };
+
 
     const totalItems = Object.values(cartitems).filter(
         (item) => item?.amount > 0
