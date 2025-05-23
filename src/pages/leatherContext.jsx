@@ -5,14 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { toast } from 'react-toastify';
 export default function LeatherContext() {
     const { id } = useParams();
     const { addToCart, allproducts, addtowishlist, wish } = useContext(ShopContext);
     const product = allproducts.find((item) => item.id === id);
     const [selectedAmount, setSelectedAmount] = useState('');
     const [unit, setUnit] = useState('yard');
-    const [showToast, setShowToast] = useState(false);
-    const [Amount, setAmount] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     if (!product) {
@@ -30,36 +29,31 @@ export default function LeatherContext() {
     };
 
 
-    function toast() {
-        if (selectedAmount > 0) {
-
-            setShowToast(true);
+     function check_login(itemId, amount, unit) {
+        const token = localStorage.getItem('auth-token');
+        if (token) {
+            show();
+            addToCart(itemId, amount, unit);
         }
         else {
-            setAmount(true);
+            toast.warn("Please log in to add to cart.");
+        }
+    }
+
+    function show() {
+        if (selectedAmount > 0) {
+
+            toast.success("Added to cart!");
+        }
+        else {
+            toast.warn("Input an amount.");
         }
         setSelectedAmount('');
-        // Auto-hide after 3 seconds
-        setTimeout(() => {
-            setShowToast(false);
-            setAmount(false);
-        }, 3000);
-        console.log("Added")
     };
     const related = allproducts.filter((item) => item.category === product.category);
 
     return (
         <>
-            {showToast && (
-                <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-                    Item added to cart!
-                </div>
-            )}
-            {Amount && (
-                <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-500 opacity-100 z-50">
-                    Input a valid quantity
-                </div>
-            )}
             <div className="px-4">
                 <div className="flex items-center justify-center ">
                     <div className="flex flex-col md:flex-row">
@@ -99,8 +93,7 @@ export default function LeatherContext() {
                             </div>
                             <div onClick={() => window.scrollTo(0, 0)}>
                                 <button onClick={() => {
-                                    toast();
-                                    addToCart(product.id, selectedAmount, unit);
+                                    check_login(product.id, selectedAmount, unit);
                                 }} className="mt-4 px-4 mr-6 py-2 text-white rounded-lg bg-gray-800 hover:bg-blue-700">
                                     Add To Cart
                                 </button>

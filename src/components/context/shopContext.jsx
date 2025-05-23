@@ -70,7 +70,7 @@ export const ShopContextProvider = (props) => {
             }, []);
         }
         else {
-
+            toast.warn("Please log in to add to cart.");
         }
     };
 
