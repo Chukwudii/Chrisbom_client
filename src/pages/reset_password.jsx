@@ -5,6 +5,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useParams } from 'react-router-dom';
+
 const Reset_password = () => {
     const navigate = useNavigate();
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -24,6 +26,8 @@ const Reset_password = () => {
     };
 
     const handleReset = async () => {
+
+        const { token } = useParams(); // ✅ Now token is defined
         try {
             const res = await fetch(`${baseURL}/reset-password/${token}`, {
                 method: 'POST',
