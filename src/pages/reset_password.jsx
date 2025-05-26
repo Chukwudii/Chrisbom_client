@@ -27,7 +27,7 @@ const Reset_password = () => {
 
     const handleReset = async () => {
 
-        const { token } = useParams(); // ✅ Now token is defined
+        const { token } = useParams(); 
         try {
             const res = await fetch(`${baseURL}/reset-password/${token}`, {
                 method: 'POST',
