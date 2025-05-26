@@ -58,7 +58,7 @@ const router = createBrowserRouter([
   { path: "/signup", element: <Signup /> },
   { path: "/login", element: <Login /> },
   { path: "/forgot_password", element: <Forgot_password /> },
-  { path: "/reset-password/:token", element: <Forgot_password /> },
+  { path: "/reset-password/:token", element: <reset_password /> },
 ]);
 
 // App component to wrap the RouterProvider with ShopContextProvider
