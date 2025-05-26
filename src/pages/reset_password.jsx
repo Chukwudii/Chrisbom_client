@@ -24,15 +24,21 @@ const Reset_password = () => {
     };
 
     const handleReset = async () => {
-        const res = await fetch(`${baseURL}/reset-password/${token}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password }),
-        });
-        const data = await res.json();
-        if (data.success) toast.success("Password updated");
-        else toast.error(data.error);
+        try {
+            const res = await fetch(`${baseURL}/reset-password/${token}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password }),
+            });
+            const data = await res.json();
+            if (data.success) toast.success(data.message || "Password updated");
+            else toast.error(data.error || "Something went wrong");
+        } catch (err) {
+            toast.error("Server error");
+            console.error("Reset error:", err);
+        }
     };
+
 
 
     return (
