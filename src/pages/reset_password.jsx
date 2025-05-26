@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const reset_password = () => {
+const Reset_password = () => {
     const navigate = useNavigate();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState(""); // State for error messages
@@ -101,4 +101,4 @@ const reset_password = () => {
     )
 }
 
-export default reset_password
+export default Reset_password
