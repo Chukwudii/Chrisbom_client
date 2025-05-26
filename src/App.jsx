@@ -15,6 +15,8 @@ import Cart from './pages/cart.jsx';
 import Profile from './pages/profile.jsx';
 import Wishlist from './pages/wishlist.jsx';
 import Order_History from './pages/Order_History.jsx';
+import Forgot_password from './pages/Forgot_password.jsx';
+import reset_password from './pages/reset_password.jsx';
 import { ShopContextProvider } from './components/context/shopContext.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -55,6 +57,8 @@ const router = createBrowserRouter([
   },
   { path: "/signup", element: <Signup /> },
   { path: "/login", element: <Login /> },
+  { path: "/forgot_password", element: <Forgot_password /> },
+  { path: "/reset-password/:token", element: <Forgot_password /> },
 ]);
 
 // App component to wrap the RouterProvider with ShopContextProvider
@@ -63,7 +67,7 @@ const App = () => {
 
     <ShopContextProvider>
       <RouterProvider router={router} />
-       <ToastContainer position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </ShopContextProvider>
 
   );
