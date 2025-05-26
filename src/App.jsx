@@ -16,7 +16,7 @@ import Profile from './pages/profile.jsx';
 import Wishlist from './pages/wishlist.jsx';
 import Order_History from './pages/Order_History.jsx';
 import Forgot_password from './pages/Forgot_password.jsx';
-import Reset_password from './pages/Reset_password.jsx';
+import Reset_password from './pages/reset_password.jsx';
 import { ShopContextProvider } from './components/context/shopContext.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
