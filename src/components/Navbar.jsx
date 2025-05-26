@@ -171,15 +171,6 @@ export default function Navbar() {
                                             </Link>
                                         </div>
                                     </div>
-                                    <div
-                                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-m leading-6 hover:bg-gray-50"
-                                    >
-                                        <div className="flex-auto">
-                                            <Link to={"/profile"} onClick={() => window.scrollTo(0, 0)} className="block font-semibold text-gray-700">
-                                                Manage Profile
-                                            </Link>
-                                        </div>
-                                    </div>
                                 </div>
                             </PopoverPanel>
                         </Popover>

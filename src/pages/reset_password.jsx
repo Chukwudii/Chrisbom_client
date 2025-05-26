@@ -2,10 +2,9 @@ import { useState } from "react";
 import React from "react";
 import "../styles/login.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Navbar from "../components/Navbar";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Reset_password = () => {
     const navigate = useNavigate();
@@ -24,18 +23,19 @@ const Reset_password = () => {
     const changeHandler = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-    const handleReset = async () => {
-
-        const { token } = useParams(); 
+    const { token } = useParams();
+    const handleReset = async (formData) => {
         try {
             const res = await fetch(`${baseURL}/reset-password/${token}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password }),
+                body: JSON.stringify(formData),
             });
             const data = await res.json();
-            if (data.success) toast.success(data.message || "Password updated");
+            if (data.success){ 
+                toast.success(data.message || "Password updated");
+                navigate("/login");
+            }
             else toast.error(data.error || "Something went wrong");
         } catch (err) {
             toast.error("Server error");
@@ -87,7 +87,7 @@ const Reset_password = () => {
                             {/* Login Button */}
                             <button
                                 type="button"
-                                onClick={handleReset}
+                                onClick={() => handleReset(formData)}
                                 disabled={!formData.password || loading}
                                 className={`w-full py-3 rounded-md text-white ${loading || !formData.password
                                     ? "bg-gray-400 cursor-not-allowed"
